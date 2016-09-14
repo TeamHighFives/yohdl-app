@@ -25,7 +25,7 @@ ReactDOM.render(
 	<Router history={browserHistory}>
 		<Route path="/yohdl" component={Home}>
       <IndexRoute component={App}/>
-			<Route path="/yohdl/room/1111" component={App}/>
+			<Route path="/yohdl/*" component={App}/>
 			<Route path="/yohdl/login" component={Login}/>
 		</Route>
 	</Router>,
