@@ -34,6 +34,7 @@ client.on('connect', () => {
 
 
 app.use(express.static('/')); 
+app.use('/clips', express.static('clips'));
 app.use(express.static('client'));
 app.use('/yohdl', express.static('yohdl'));
 
