@@ -7,12 +7,15 @@ class ClipsList extends Component {
     if(this.props.clips.length > 0) {
       console.log("thispropsclips", this.props.clips);
       console.log("this", this);
-      
-      items = this.props.clips.map((item) => {
-
+      this.props.clips.reverse();
+      items = this.props.clips.map((item, index) => {
       let path = '/../../clips/' + item; 
-      console.log("items", path); 
-      return <div> <ReactAudioPlayer src={path}/> </div>
+      let last = this.props.clips.length - 1;
+      if(index !== last) {
+      return <li> <ReactAudioPlayer src={path}/> </li>
+      } else {     
+      return <li> <ReactAudioPlayer src={path} autoPlay="true"/> </li>
+      }
     });
   }
     return (
