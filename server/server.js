@@ -33,7 +33,7 @@ client.on('connect', () => {
 });
 
 
-// app.use(express.static('/'));
+app.use('/',express.static('client/yohdl'));
 app.use('/clips', express.static('clips'));
 // app.use(express.static('client'));
 app.use('/yohdl/room/:roomId', express.static('client/yohdl'));
@@ -66,7 +66,7 @@ app.use(cookieParser());
 
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, './../client/index.html'));
+  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
 });
 
 app.get('/yohdl/room/:roomId', function (req, res) {
