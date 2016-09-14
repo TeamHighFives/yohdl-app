@@ -32,7 +32,28 @@ fileControllerM.getFile = (req, res, next) => {
       let outArr = user.map((item) => {
         return item.pathUrl;
       });
-      res.send(JSON.stringify(outArr));
+      let stringifiedFiles = JSON.stringify(outArr);
+      res.clipFiles = stringifiedFiles;
+      next();
+    }
+  });
+  // next();
+}
+
+fileControllerM.getFilesByRoom = (req, res, next) => {
+  File.find({roomId: req.params.roomId})
+  .sort({ updatedAt: -1 })
+  .select('pathUrl')
+  .exec( (err, user) => {
+    if (err) {
+      console.log('error', err);
+    } else {
+      let outArr = user.map((item) => {
+        return item.pathUrl;
+      });
+      let stringifiedFiles = JSON.stringify(outArr);
+      res.clipFiles = stringifiedFiles;
+      next();
     }
   });
   // next();
