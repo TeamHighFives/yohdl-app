@@ -86,7 +86,7 @@
 
 			var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
-			_this.state = { clips: ['clipBkZaKzL2.oog', 'clipHkkEkfU2.oog', 'clipHyGI5fLh.oog'] };
+			_this.state = { clips: [] };
 			return _this;
 		}
 
@@ -102,19 +102,22 @@
 				var that = this;
 				socket.on('userObj', function (data) {
 					that.setState({ data: data });
-					console.log(that.state, 'current state');
 				});
 			}
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var that = this;
+				console.log(that);
+				$.get('/clips', function (data) {
+					data = JSON.parse(data);
+					that.setState({ clips: data });
+				});
+				var that = this;
 				socket.on('newClip', function (url) {
-					console.log('inside new clip event');
-					// setTimeout(() => {
-					// 	that.setState({ files: [url] })
-					// }, 3000);
-					//that.state.chats[0].files = [url];
+					var newClips = that.state.clips.slice();
+					newClips.push(url);
+					that.setState({ clips: newClips });
 					console.log("URL did Mount", url);
 					that.forceUpdate();
 				});
@@ -21670,19 +21673,24 @@
 	  _createClass(ClipsList, [{
 	    key: 'render',
 	    value: function render() {
-	      var items = this.props.clips.map(function (item) {
+	      var items = void 0;
+	      if (this.props.clips.length > 0) {
+	        console.log("thispropsclips", this.props.clips);
+	        console.log("this", this);
 
-	        var path = '/../../clips/' + item;
-	        console.log("items", path);
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          ' ',
-	          _react2.default.createElement(_reactAudioPlayer2.default, { src: path }),
-	          ' '
-	        );
-	      });
+	        items = this.props.clips.map(function (item) {
 
+	          var path = '/../../clips/' + item;
+	          console.log("items", path);
+	          return _react2.default.createElement(
+	            'div',
+	            null,
+	            ' ',
+	            _react2.default.createElement(_reactAudioPlayer2.default, { src: path }),
+	            ' '
+	          );
+	        });
+	      }
 	      return _react2.default.createElement(
 	        'span',
 	        { id: 'clips' },
