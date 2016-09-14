@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser');
 const userController = require('./user/userController');
 const chatController = require('./chat/chatController');
 const fileController = require('./files/fileController');
+const fileControllerM = require('./files/fileControllerM');
+
 const cookieController = require('./utils/cookieController');
 const chat = require('./chat/chatController');
 const redis = require('redis');
@@ -16,9 +18,13 @@ const Nohm = require('nohm').Nohm;
 const client = redis.createClient();
 const concat = require('concat-stream');
 const cookie = require('cookie');
+const mongoose = require('mongoose');
+const File = require('./files/fileModelM');
 let curClip;
 
+const mongoURI = 'mongodb://teamhighfive:codesmith05@ds029496.mlab.com:29496/teamhighfive';
 
+mongoose.connect(mongoURI); 
 
 client.on('connect', () => {
   console.log('connected to redis');
@@ -26,6 +32,8 @@ client.on('connect', () => {
   Nohm.setPrefix('yohdl');
 });
 
+
+app.use(express.static('/')); 
 app.use(express.static('client'));
 app.use('/yohdl', express.static('yohdl'));
 
@@ -64,18 +72,13 @@ app.get('/yohdl', function (req, res) {
 });
 
 
-
 app.post('/clip', (req, res) => {
   console.log('body', req.body);
   var data = req.body;
-  
   // var fileId = req.cookie.id;
-  
-  fileController.createFile({createdAt: 1111, author: 11}).then((filepath) => {
-
+  fileControllerM.createFile().then((filepath) => {
     curClip = filePath;
-    
-    fs.writeFile(__dirname + '/../client/yohdl/' + filePath, data, (err) => {
+    fs.writeFile(__dirname + '/../clips/' + filePath, data, (err) => {
       if (err) {
         throw err;
       } else  {
@@ -83,7 +86,9 @@ app.post('/clip', (req, res) => {
         io.emit('newClip', curClip);
       }
     });
+    console.log("received filePath");
   })
+
   // let buf = new Buffer.(req.body.toString('binary'),'binary');
   res.send('ok');
 })
@@ -127,8 +132,6 @@ io.on('connection', function (socket) {
     // userController.getUser().then((data) => {socket.emit('userObj', data);});
     // console.log(cookie.parse(socket.handshake.headers['cookie']));
     // userController.getUser().then((data) => { socket.emit('userObj', data); });
-
-    
   }
 ) 
 // io.on('clip', () => { 
