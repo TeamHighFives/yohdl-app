@@ -38,6 +38,7 @@ app.use('/clips', express.static('clips'));
 // app.use(express.static('client'));
 app.use('/yohdl/room/:roomId', express.static('client/yohdl'));
 app.use('/yohdl', express.static('client/yohdl'));
+app.use('/', express.static('client/yohdl'));
 
 
 

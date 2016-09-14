@@ -35,14 +35,14 @@ class ClipsList extends Component {
   }
 
   render() {
-    let items; 
+    let items;
     if(this.props.clips.length > 0) {
       items = this.props.clips.map((item, index) => {
-      let path = '/../../clips/' + item; 
+      let path = '/../../clips/' + item;
       let last = this.props.clips.length - 1;
       if(index !== last) {
         return <li> <ReactAudioPlayer preload={'auto'} src={path}/> </li>
-      } else {     
+      } else {
         return <li> <ReactAudioPlayer preload={'auto'} src={path} autoPlay="true"/> </li>
       }
     });

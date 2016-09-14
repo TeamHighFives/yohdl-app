@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom'
-import Recorder from './recordClip.jsx';
-import ChatList from './chatList.jsx';
+import { Router, Route, Link } from 'react-router';
 import ClipsList from './clipsList.jsx';
+
 var socket = io.connect();
 
 
@@ -35,23 +35,25 @@ class App extends Component {
 			data = JSON.parse(data);
 			data.reverse();
 			that.setState({clips: data});
-		}); 
+		});
 		var that = this;
 			socket.on('newClip', function (url) {
-				let newClips = that.state.clips.slice(); 
-				newClips.push(url); 
-				that.setState({clips: newClips}); 
-				console.log("URL did Mount", url); 
+				let newClips = that.state.clips.slice();
+				newClips.push(url);
+				that.setState({clips: newClips});
+				console.log("URL did Mount", url);
 				that.forceUpdate();
 		})
 	}
-	
+
   render() {
     return (
-      <div className="Header">
-        <h1>Yodle.</h1>
-				<ClipsList clips={this.state.clips} />
-      </div>
+			<div>
+	      <div className="Header">
+	        <h1>Yodle.</h1>
+					<ClipsList clips={this.state.clips} />
+	      </div>
+			</div>
     );
   }
 }
@@ -62,7 +64,4 @@ const styles = {
 	},
 }
 
-ReactDOM.render(
-	<App />,
-	document.getElementById('app')
-);
+export default App;
