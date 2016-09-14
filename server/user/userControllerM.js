@@ -56,8 +56,9 @@ let userControllerM = {
 		let keys = chunked.map((element) => {
 			return element.split('=');
 		});
-		console.log("REQBODY in verify", req.body);
-		User.findOne({username: req.body.username}, (err, user) => {
+		console.log("REQBODY in verify", keys[0][1]);
+		User.findOne({username: keys[0][1]}, (err, user) => {
+			console.log("USER", user);
 			if(err) {
 				console.log("Error in verifying user", err) ;
 			} else if(user) {
