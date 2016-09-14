@@ -95,9 +95,12 @@ if (navigator.getUserMedia) {
       }
 
       sendButton.onclick = function(e) {
+        let roomName = window.location.pathname.match(/(?!room)[1-9]+/)[0];
+        console.log("onclick room name", roomName);
         var xhttp = new XMLHttpRequest();
         console.log(blob);
         xhttp.open("POST", "/clip", true);
+        xhttp.setRequestHeader('roomId', roomName);        
         xhttp.send(blob)
         e.target.parentNode.parentNode.removeChild(e.target.parentNode);
         xhttp.onreadystatechange = function() {

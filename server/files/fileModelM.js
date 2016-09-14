@@ -15,7 +15,11 @@ const fileSchema = new Schema({
    updatedAt: {
      type : Date,
      default : Date.now
-   }
+   },
+	 roomId: {
+		 type: String,
+		 required: true
+	 }
 });
 
 module.exports = mongoose.model('File', fileSchema);

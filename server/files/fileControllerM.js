@@ -3,13 +3,14 @@ const File = require('./fileModelM');
 const shortId = require('shortid');
 fileControllerM = {};
 
-fileControllerM.createFile = function (data) {
+fileControllerM.createFile = function (roomId) {
   //console.log("inside fileCreate");
   let clipId = shortId.generate();
+  console.log('roomID in file controller', roomId);
   console.log("shortID generated", clipId);
   filePath = 'clip' + clipId + '.oog';
   return new Promise((resolve, reject) => {
-    File.create({fileId: clipId, pathUrl: filePath}, (err, data) => {
+    File.create({fileId: clipId, pathUrl: filePath, roomId: roomId}, (err, data) => {
       if(err) {
         reject(err);
       } else {
@@ -32,7 +33,28 @@ fileControllerM.getFile = (req, res, next) => {
       let outArr = user.map((item) => {
         return item.pathUrl;
       });
-      res.send(JSON.stringify(outArr));
+      let stringifiedFiles = JSON.stringify(outArr);
+      res.clipFiles = stringifiedFiles;
+      next();
+    }
+  });
+  // next();
+}
+
+fileControllerM.getFilesByRoom = (req, res, next) => {
+  File.find({roomId: req.params.roomId})
+  .sort({ updatedAt: -1 })
+  .select('pathUrl')
+  .exec( (err, user) => {
+    if (err) {
+      console.log('error', err);
+    } else {
+      let outArr = user.map((item) => {
+        return item.pathUrl;
+      });
+      let stringifiedFiles = JSON.stringify(outArr);
+      res.clipFiles = stringifiedFiles;
+      next();
     }
   });
   // next();

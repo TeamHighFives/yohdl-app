@@ -34,10 +34,12 @@ client.on('connect', () => {
 });
 
 
-app.use(express.static('/'));
+app.use('/',express.static('client/yohdl'));
 app.use('/clips', express.static('clips'));
-app.use(express.static('client'));
-app.use('/yohdl', express.static('yohdl'));
+// app.use(express.static('client'));
+app.use('/yohdl/room/:roomId', express.static('client/yohdl'));
+app.use('/yohdl', express.static('client/yohdl'));
+app.use('/', express.static('client/yohdl'));
 
 
 
@@ -66,22 +68,29 @@ app.use(cookieParser());
 
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, './../client/index.html'));
-});
-app.get('/yohdl', function (req, res) {
-
   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
 });
 
+app.get('/yohdl/room/:roomId', function (req, res) {
+  console.log("PATH ", __dirname)
+  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+});
+
+app.get('/yohdl', function (req, res) {
+  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+});
+
+
+
 app.get('/clips', fileControllerM.getFile, (req, res) => {
-  console.log('hit the clips')
+  res.send(res.clipFiles);
 });
 
 app.post('/clip', (req, res) => {
-  console.log('body', req.body);
   var data = req.body;
+  let roomId = req.headers.roomid;
   // var fileId = req.cookie.id;
-  fileControllerM.createFile().then((filepath) => {
+  fileControllerM.createFile(roomId).then((filepath) => {
     curClip = filePath;
     fs.writeFile(__dirname + '/../clips/' + filePath, data, (err) => {
       if (err) {
@@ -98,6 +107,9 @@ app.post('/clip', (req, res) => {
   res.send('ok');
 })
 
+app.get('/roomClips/:roomId', fileControllerM.getFilesByRoom, (req, res) => {
+  res.send(res.clipFiles);
+})
 //serving main.js
 // app.get('/bundle.js', function(req, res) {
 //   res.sendFile(path.join(__dirname, './../client/yohdl/bundle.js'));
