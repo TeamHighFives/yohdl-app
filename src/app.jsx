@@ -33,6 +33,7 @@ class App extends Component {
 		
 		$.get(getPath, (data) => {
 			data = JSON.parse(data);
+			data.reverse();
 			that.setState({clips: data});
 		}); 
 		var that = this;
