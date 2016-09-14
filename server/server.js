@@ -117,12 +117,14 @@ app.post('/clip', (req, res) => {
 
 //logging the user in
 app.post('/login', userControllerM.verifyUser, (req, res) => {
-  res.send("Reached the login page"); 
+  res.sendFile('./../yohdl')
 });
 
 app.post('/signup', userControllerM.createUser, (req, res) => {
-  res.send("Reached the Signup Page"); 
+  res.sendFile('/')
 });
+
+
 
 let globalSocket;
 //socket.io

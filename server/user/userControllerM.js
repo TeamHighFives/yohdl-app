@@ -56,28 +56,21 @@ let userControllerM = {
 		let keys = chunked.map((element) => {
 			return element.split('=');
 		});
-		console.log("REQBODY in verify", req.body);
-		User.findOne({username: req.body.username}, (err, user) => {
+		console.log("REQBODY in verify", keys[0][1]);
+		User.findOne({username: keys[0][1]}, (err, user) => {
+			console.log("USER IN VERIFY:", user);
 			if(err) {
 				console.log("Error in verifying user", err) ;
 			} else if(user) {
 				//returns truthy to check password verification
-				const passwordCheck = bcrypt.compareSync(req.body.password, user.password); 
+				const passwordCheck = bcrypt.compareSync(keys[1][1], user.password); 
+				console.log(passwordCheck);
 				if(passwordCheck){
 					next()
 				} else {
 					res.send("Unable to login, check password"); 
 				}
 			}
-		});
-	},
-
-	bodyParse: function(req, res) {
-		console.log("REQBODY in BODY PARSE", req.body);
-		let chunked = req.body.toString().split('&');
-		let newStr = req.body.toString(); 
-		let keys = chunked.map((element) => {
-			return element.split('=');
 		});
 	}
 
