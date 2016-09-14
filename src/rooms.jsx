@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default React.createClass({
+class Rooms extends Component {
   render() {
-    <div>
-      <h1>This is a room</h1>
-    </div>
+    return (
+      <div>
+        <h1>This is a room</h1>
+      </div>
+    )
   }
-})
+}
+
+export default Rooms;

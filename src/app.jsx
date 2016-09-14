@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom'
 import { Router, Route, Link } from 'react-router';
+import ClipsList from './clipsList.jsx';
 
 var socket = io.connect();
 

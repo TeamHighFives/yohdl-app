@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default React.createClass({
+class Login extends Component {
   render() {
-    <div>
-      <h1>This is the login</h1>
-    </div>
+    return (
+      <div>
+        <h1>This is the login</h1>
+      </div>
+    );
   }
-})
+}
+
+export default Login;
