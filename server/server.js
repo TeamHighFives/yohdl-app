@@ -35,8 +35,9 @@ client.on('connect', () => {
 
 app.use(express.static('/'));
 app.use('/clips', express.static('clips'));
-app.use(express.static('client'));
-app.use('/yohdl', express.static('yohdl'));
+// app.use(express.static('client'));
+app.use('/yohdl/room/:roomId', express.static('client/yohdl'));
+// app.use('/yohdl', express.static('yohdl'));
 
 
 
@@ -67,13 +68,19 @@ app.use(cookieParser());
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, './../client/index.html'));
 });
-app.get('/yohdl', function (req, res) {
 
+app.get('/yohdl/room/:roomId', function (req, res) {
+  console.log("PATH ", __dirname)
   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
 });
 
+// app.get('/yohdl', function (req, res) {
+//   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+// });
+
+
+
 app.get('/clips', fileControllerM.getFile, (req, res) => {
-  console.log(res.clipFiles, "files after passing through filecontroller middleware");
   res.send(res.clipFiles);
 });
 
@@ -100,8 +107,6 @@ app.post('/clip', (req, res) => {
 })
 
 app.get('/roomClips/:roomId', fileControllerM.getFilesByRoom, (req, res) => {
-
-  //req.params.roomId = '1111'
   res.send(res.clipFiles);
 })
 //serving main.js

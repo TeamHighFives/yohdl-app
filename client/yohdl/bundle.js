@@ -108,8 +108,10 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var that = this;
-				console.log(that);
-				$.get('/clips', function (data) {
+				var splitPath = window.location.pathname.split('/');
+				var roomName = splitPath[splitPath.length - 2];
+				var getPath = '/roomClips/' + roomName;
+				$.get(getPath, function (data) {
 					data = JSON.parse(data);
 					that.setState({ clips: data });
 				});
@@ -21664,21 +21666,28 @@
 	var ClipsList = function (_Component) {
 	  _inherits(ClipsList, _Component);
 
-	  function ClipsList() {
+	  function ClipsList(props) {
 	    _classCallCheck(this, ClipsList);
 
-	    return _possibleConstructorReturn(this, (ClipsList.__proto__ || Object.getPrototypeOf(ClipsList)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (ClipsList.__proto__ || Object.getPrototypeOf(ClipsList)).call(this, props));
+
+	    _this.playAll = _this.playAll.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(ClipsList, [{
+	    key: 'playAll',
+	    value: function playAll() {
+	      var clipQueue = Array.from(document.querySelectorAll(".react-audio-player"));
+	      var firstClip = clipQueue.shift();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
 	      var items = void 0;
 	      if (this.props.clips.length > 0) {
-	        console.log("thispropsclips", this.props.clips);
-	        console.log("this", this);
 	        this.props.clips.reverse();
 	        items = this.props.clips.map(function (item, index) {
 	          var path = '/../../clips/' + item;
@@ -21688,7 +21697,7 @@
 	              'li',
 	              null,
 	              ' ',
-	              _react2.default.createElement(_reactAudioPlayer2.default, { src: path }),
+	              _react2.default.createElement(_reactAudioPlayer2.default, { preload: 'auto', src: path }),
 	              ' '
 	            );
 	          } else {
@@ -21696,19 +21705,28 @@
 	              'li',
 	              null,
 	              ' ',
-	              _react2.default.createElement(_reactAudioPlayer2.default, { src: path, autoPlay: 'true' }),
+	              _react2.default.createElement(_reactAudioPlayer2.default, { preload: 'auto', src: path, autoPlay: 'true' }),
 	              ' '
 	            );
 	          }
 	        });
 	      }
 	      return _react2.default.createElement(
-	        'span',
-	        { id: 'clips' },
+	        'div',
+	        null,
 	        _react2.default.createElement(
-	          'ul',
-	          null,
-	          items
+	          'div',
+	          { onClick: this.playAll },
+	          'Play all'
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { id: 'clips' },
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            items
+	          )
 	        )
 	      );
 	    }

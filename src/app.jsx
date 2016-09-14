@@ -23,8 +23,10 @@ class App extends Component {
 	}
 	componentDidMount() {
 		var that = this;
-		console.log(that);
-		$.get('/clips', (data) => {
+		let splitPath = window.location.pathname.split('/')
+		let roomName = splitPath[splitPath.length - 2];
+		let getPath = '/roomClips/' + roomName;
+		$.get(getPath, (data) => {
 			data = JSON.parse(data);
 			that.setState({clips: data});
 		}); 
