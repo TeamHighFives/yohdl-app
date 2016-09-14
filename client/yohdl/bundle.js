@@ -27190,15 +27190,6 @@
 	            null,
 	            _react2.default.createElement(
 	              _reactRouter.Link,
-	              { to: '/yohdl', activeStyle: { color: 'red' } },
-	              'Home'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            _react2.default.createElement(
-	              _reactRouter.Link,
 	              { to: '/yohdl/login', activeStyle: { color: 'red' } },
 	              'Login'
 	            )
@@ -27307,9 +27298,14 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var that = this;
-				var splitPath = window.location.pathname.split('/');
-				var roomName = splitPath[splitPath.length - 2];
-				var getPath = '/roomClips/' + roomName;
+				var regRoomName = window.location.pathname.match(/(?!room)[1-9]+/)[0];
+
+				// console.log("regex room name", regRoomName);
+				// let splitPath = window.location.pathname.split('/')
+				// let roomName = splitPath[splitPath.length - 2];
+				var getPath = '/roomClips/' + regRoomName;
+				// console.log("roomname", roomName)
+
 				$.get(getPath, function (data) {
 					data = JSON.parse(data);
 					that.setState({ clips: data });
@@ -27492,10 +27488,25 @@
 	  function Login() {
 	    _classCallCheck(this, Login);
 
-	    return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this));
+
+	    _this.state = {};
+	    _this.sendCreds = _this.sendCreds.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(Login, [{
+	    key: 'sendCreds',
+	    value: function sendCreds(e) {
+	      e.preventDefault();
+	      var newState = {
+	        username: e.target.elements[0].value,
+	        password: e.target.elements[1].value
+	      };
+	      this.setState = newState;
+	      console.log('hit submit with these events - ', newState);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -27504,7 +27515,18 @@
 	        _react2.default.createElement(
 	          'h1',
 	          null,
-	          'This is the login'
+	          'Login'
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.sendCreds },
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'username', value: this.state.username }),
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'password', value: this.state.password }),
+	          _react2.default.createElement(
+	            'button',
+	            { type: 'submit' },
+	            'submit'
+	          )
 	        )
 	      );
 	    }
