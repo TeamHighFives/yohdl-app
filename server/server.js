@@ -99,7 +99,7 @@ app.post('/clip', (req, res) => {
   res.send('ok');
 })
 
-app.get('/yohdl/room/:roomId', fileControllerM.getFilesByRoom, (req, res) => {
+app.get('/roomClips/:roomId', fileControllerM.getFilesByRoom, (req, res) => {
 
   //req.params.roomId = '1111'
   res.send(res.clipFiles);
