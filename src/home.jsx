@@ -23,9 +23,9 @@ class Home extends Component {
 
 ReactDOM.render(
 	<Router history={browserHistory}>
-		<Route path="/yohdl" component={Home}>
-      <IndexRoute component={App}/>
-			<Route path="/yohdl/*" component={App}/>
+		<Route path="/" component={Home}>
+      <IndexRoute component={Login}/>
+			<Route path="/yohdl/room/:roomId" component={App}/>
 			<Route path="/yohdl/login" component={Login}/>
 		</Route>
 	</Router>,
