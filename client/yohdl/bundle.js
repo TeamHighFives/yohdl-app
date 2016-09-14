@@ -62,9 +62,9 @@
 
 	var _nav2 = _interopRequireDefault(_nav);
 
-	var _rooms = __webpack_require__(236);
+	var _room = __webpack_require__(241);
 
-	var _rooms2 = _interopRequireDefault(_rooms);
+	var _room2 = _interopRequireDefault(_room);
 
 	var _app = __webpack_require__(237);
 
@@ -113,7 +113,7 @@
 	    _reactRouter.Route,
 	    { path: '/yohdl', component: Home },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _app2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/yohdl/rooms', component: _rooms2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/yohdl/room/1111', component: _app2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/yohdl/login', component: _login2.default })
 	  )
 	), document.getElementById('app'));
@@ -27208,7 +27208,7 @@
 	            null,
 	            _react2.default.createElement(
 	              _reactRouter.Link,
-	              { to: '/yohdl/rooms', activeStyle: { color: 'red' } },
+	              { to: '/yohdl/room/1111', activeStyle: { color: 'red' } },
 	              'Room list'
 	            )
 	          )
@@ -27223,59 +27223,7 @@
 	exports.default = Nav;
 
 /***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Rooms = function (_Component) {
-	  _inherits(Rooms, _Component);
-
-	  function Rooms() {
-	    _classCallCheck(this, Rooms);
-
-	    return _possibleConstructorReturn(this, (Rooms.__proto__ || Object.getPrototypeOf(Rooms)).apply(this, arguments));
-	  }
-
-	  _createClass(Rooms, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'This is a room'
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Rooms;
-	}(_react.Component);
-
-	exports.default = Rooms;
-
-/***/ },
+/* 236 */,
 /* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27546,6 +27494,25 @@
 	}(_react.Component);
 
 	exports.default = Login;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports) {
+
+	// import React, { Component } from 'react';
+	//
+	// class Room extends Component {
+	//   render() {
+	//     return (
+	//       <div>
+	//         <h1>This is a room</h1>
+	//       </div>
+	//     )
+	//   }
+	// }
+	//
+	// export default Room;
+	"use strict";
 
 /***/ }
 /******/ ]);

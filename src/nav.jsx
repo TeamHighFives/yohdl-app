@@ -9,7 +9,7 @@ class Nav extends Component {
         <ul role="nav">
           <li><Link to="/yohdl" activeStyle={{ color: 'red' }}>Home</Link></li>
           <li><Link to="/yohdl/login" activeStyle={{ color: 'red' }}>Login</Link></li>
-          <li><Link to="/yohdl/rooms" activeStyle={{ color: 'red' }}>Room list</Link></li>
+          <li><Link to="/yohdl/room/1111" activeStyle={{ color: 'red' }}>Room list</Link></li>
         </ul>
       </nav>
     )

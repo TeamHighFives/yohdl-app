@@ -4,7 +4,7 @@
 //   render() {
 //     return (
 //       <div>
-//         <h1>{this.props.params.roomId}</h1>
+//         <h1>This is a room</h1>
 //       </div>
 //     )
 //   }
