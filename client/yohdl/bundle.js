@@ -86,7 +86,7 @@
 
 			var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
-			_this.state = { id: 5678, chats: [{ chatName: 'Codesmith', files: [], id: 679 }, { chatName: 'MakerSquare', files: [4, 5, 6], id: 123 }] };
+			_this.state = { clips: [] };
 			return _this;
 		}
 
@@ -102,19 +102,22 @@
 				var that = this;
 				socket.on('userObj', function (data) {
 					that.setState({ data: data });
-					console.log(that.state, 'current state');
 				});
 			}
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var that = this;
+				console.log(that);
+				$.get('/clips', function (data) {
+					data = JSON.parse(data);
+					that.setState({ clips: data });
+				});
+				var that = this;
 				socket.on('newClip', function (url) {
-					console.log('inside new clip event');
-					// setTimeout(() => {
-					// 	that.setState({ files: [url] })
-					// }, 3000);
-					that.state.chats[0].files = [url];
+					var newClips = that.state.clips.slice();
+					newClips.push(url);
+					that.setState({ clips: newClips });
 					console.log("URL did Mount", url);
 					that.forceUpdate();
 				});
@@ -130,8 +133,7 @@
 						null,
 						'Yodle.'
 					),
-					_react2.default.createElement(_chatList2.default, { chats: this.state.chats, select: this.selectChat }),
-					_react2.default.createElement(_clipsList2.default, { clips: this.state.chats[0].files })
+					_react2.default.createElement(_clipsList2.default, { clips: this.state.clips })
 				);
 			}
 		}]);
@@ -21671,18 +21673,24 @@
 	  _createClass(ClipsList, [{
 	    key: 'render',
 	    value: function render() {
-	      var items = this.props.clips.map(function (item) {
-	        console.log("items", item);
-	        var path = '/../../clips/' + item;
-	        return _react2.default.createElement(
-	          'li',
-	          null,
-	          ' ',
-	          _react2.default.createElement(_reactAudioPlayer2.default, { src: path, autoPlay: 'true' }),
-	          ' '
-	        );
-	      });
+	      var items = void 0;
+	      if (this.props.clips.length > 0) {
+	        console.log("thispropsclips", this.props.clips);
+	        console.log("this", this);
 
+	        items = this.props.clips.map(function (item) {
+
+	          var path = '/../../clips/' + item;
+	          console.log("items", path);
+	          return _react2.default.createElement(
+	            'div',
+	            null,
+	            ' ',
+	            _react2.default.createElement(_reactAudioPlayer2.default, { src: path }),
+	            ' '
+	          );
+	        });
+	      }
 	      return _react2.default.createElement(
 	        'span',
 	        { id: 'clips' },

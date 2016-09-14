@@ -9,7 +9,7 @@ var socket = io.connect();
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { id: 5678, chats: [{ chatName: 'Codesmith', files: [], id: 679 }, { chatName: 'MakerSquare', files: [4, 5, 6], id: 123 }] }
+		this.state = {clips: []}
 	}
 	selectChat(id) {
 		console.log(id);
@@ -19,29 +19,30 @@ class App extends Component {
 		var that = this;
 		socket.on('userObj', function (data) {
 			that.setState({ data });
-			console.log(that.state, 'current state');
 		})
 	}
 	componentDidMount() {
 		var that = this;
+		console.log(that);
+		$.get('/clips', (data) => {
+			data = JSON.parse(data);
+			that.setState({clips: data});
+		}); 
+		var that = this;
 			socket.on('newClip', function (url) {
-				console.log('inside new clip event');
-				// setTimeout(() => {
-				// 	that.setState({ files: [url] })
-				// }, 3000);
-				that.state.chats[0].files = [url];
+				let newClips = that.state.clips.slice(); 
+				newClips.push(url); 
+				that.setState({clips: newClips}); 
 				console.log("URL did Mount", url); 
 				that.forceUpdate();
 		})
 	}
 	
-
   render() {
     return (
       <div className="Header">
         <h1>Yodle.</h1>
-				<ChatList chats={this.state.chats}  select={this.selectChat}/>
-				<ClipsList clips={this.state.chats[0].files} />
+				<ClipsList clips={this.state.clips} />
       </div>
     );
   }
