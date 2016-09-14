@@ -1,27 +1,44 @@
-const mongoose = require('mongoose'); 
-const File = require('./fileModelM'); 
-const shortId = require('shortid'); 
+const mongoose = require('mongoose');
+const File = require('./fileModelM');
+const shortId = require('shortid');
 fileControllerM = {};
 
 fileControllerM.createFile = function (data) {
-  //console.log("inside fileCreate"); 
-  let clipId = shortId.generate(); 
+  //console.log("inside fileCreate");
+  let clipId = shortId.generate();
   console.log("shortID generated", clipId);
-  filePath = 'clip' + clipId + '.oog'; 
+  filePath = 'clip' + clipId + '.oog';
   return new Promise((resolve, reject) => {
-    File.create({fileId: clipId, filePath: filePath}, (err, data) => {
+    File.create({fileId: clipId, pathUrl: filePath}, (err, data) => {
       if(err) {
         reject(err);
       } else {
         console.log("Success Store");
         console.log(filePath);
-        resolve(filePath); 
+        resolve(filePath);
       }
     });
   });
 }
 
-module.exports = fileControllerM; 
+fileControllerM.getFile = (req, res, next) => {
+  File.find({})
+  .sort({ updatedAt: -1 })
+  .select('pathUrl')
+  .exec( (err, user) => {
+    if (err) {
+      console.log('error', err);
+    } else {
+      let outArr = user.map((item) => {
+        return item.pathUrl;
+      });
+      res.send(JSON.stringify(outArr));
+    }
+  });
+  // next();
+}
+
+module.exports = fileControllerM;
 // fileController.createFile = function (data) {
 //   // fileController.getFileCount();
 //   console.log('inside file ctrl create file')
@@ -35,7 +52,7 @@ module.exports = fileControllerM;
 //         reject(err);
 //       } else {
 //         console.log('inside else in create file');
-//              ///need to store file path name 
+//              ///need to store file path name
 //         resolve(filePath);
 //       }
 //     });

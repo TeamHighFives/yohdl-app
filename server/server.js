@@ -24,7 +24,7 @@ let curClip;
 
 const mongoURI = 'mongodb://teamhighfive:codesmith05@ds029496.mlab.com:29496/teamhighfive';
 
-mongoose.connect(mongoURI); 
+mongoose.connect(mongoURI);
 
 client.on('connect', () => {
   console.log('connected to redis');
@@ -33,7 +33,7 @@ client.on('connect', () => {
 });
 
 
-app.use(express.static('/')); 
+app.use(express.static('/'));
 app.use('/clips', express.static('clips'));
 app.use(express.static('client'));
 app.use('/yohdl', express.static('yohdl'));
@@ -68,8 +68,12 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, './../client/index.html'));
 });
 app.get('/yohdl', function (req, res) {
-  
+
   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+});
+
+app.get('/clips', fileControllerM.getFile, (req, res) => {
+  console.log('hit the clips')
 });
 
 
@@ -119,26 +123,24 @@ let globalSocket;
 io.on('connection', function (socket) {
   globalSocket = socket;
   console.log('connected')
-  socket.on('clip', () => { 
+  socket.on('clip', () => {
     console.log('inclip listener')
     // console.log('curClip in ')
     setTimeout(() => {
       socket.emit('newClip', curClip);
     }, 5000);
-    
+
    });
     // console.log(cookie.parse(socket.handshake.headers['cookie']));
-    //id = req.params.id 
+    //id = req.params.id
     //user object contrl.getuser()
     // userController.getUser().then((data) => {socket.emit('userObj', data);});
     // console.log(cookie.parse(socket.handshake.headers['cookie']));
     // userController.getUser().then((data) => { socket.emit('userObj', data); });
   }
-) 
-// io.on('clip', () => { 
+)
+// io.on('clip', () => {
 //   console.log('in clip')
 // })
 
-server.listen(8080);  
-
-
+server.listen(8080);
