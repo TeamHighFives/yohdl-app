@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema; 
+const Schema = mongoose.Schema;
 
 const fileSchema = new Schema({
 	fileId: {
-		type: String, 
+		type: String,
 		require: true
 	},
 	userId: {
@@ -11,11 +11,15 @@ const fileSchema = new Schema({
 	},
 	pathUrl: {
 		type: String
-	}
+	},
+   updatedAt: {
+     type : Date,
+     default : Date.now
+   }
 });
 
-module.exports = mongoose.model('File', fileSchema); 
+module.exports = mongoose.model('File', fileSchema);
 
 // const shortId = require('shortid');
-// console.log(shortId.generate()); 
+// console.log(shortId.generate());
 // mongoose.connect('mongodb://teamhighfive:codesmith05@ds029496.mlab.com:29496/teamhighfive')
