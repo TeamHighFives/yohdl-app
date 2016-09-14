@@ -27479,22 +27479,33 @@
 	  _createClass(ClipsList, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var items = void 0;
 	      if (this.props.clips.length > 0) {
 	        console.log("thispropsclips", this.props.clips);
 	        console.log("this", this);
-
-	        items = this.props.clips.map(function (item) {
-
+	        this.props.clips.reverse();
+	        items = this.props.clips.map(function (item, index) {
 	          var path = '/../../clips/' + item;
-	          console.log("items", path);
-	          return _react2.default.createElement(
-	            'div',
-	            null,
-	            ' ',
-	            _react2.default.createElement(_reactAudioPlayer2.default, { src: path }),
-	            ' '
-	          );
+	          var last = _this2.props.clips.length - 1;
+	          if (index !== last) {
+	            return _react2.default.createElement(
+	              'li',
+	              null,
+	              ' ',
+	              _react2.default.createElement(_reactAudioPlayer2.default, { src: path }),
+	              ' '
+	            );
+	          } else {
+	            return _react2.default.createElement(
+	              'li',
+	              null,
+	              ' ',
+	              _react2.default.createElement(_reactAudioPlayer2.default, { src: path, autoPlay: 'true' }),
+	              ' '
+	            );
+	          }
 	        });
 	      }
 	      return _react2.default.createElement(
