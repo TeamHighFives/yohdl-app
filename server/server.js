@@ -11,6 +11,7 @@ const chatController = require('./chat/chatController');
 const fileController = require('./files/fileController');
 const fileControllerM = require('./files/fileControllerM');
 
+const userControllerM = require('./user/userControllerM');
 const cookieController = require('./utils/cookieController');
 const chat = require('./chat/chatController');
 const redis = require('redis');
@@ -76,7 +77,6 @@ app.get('/clips', fileControllerM.getFile, (req, res) => {
   console.log('hit the clips')
 });
 
-
 app.post('/clip', (req, res) => {
   console.log('body', req.body);
   var data = req.body;
@@ -116,7 +116,13 @@ app.post('/clip', (req, res) => {
 // });
 
 //logging the user in
-app.post('/login', userController.verifyUser);
+app.post('/login', userControllerM.verifyUser, (req, res) => {
+  res.send("Reached the login page"); 
+});
+
+app.post('/signup', userControllerM.createUser, (req, res) => {
+  res.send("Reached the Signup Page"); 
+});
 
 let globalSocket;
 //socket.io

@@ -20,6 +20,7 @@
   "dependencies": {
     "babel": "^6.5.2",
     "bcrypt": "^0.8.7",
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "bower": "^1.7.9",
     "browserify": "^13.1.0",
