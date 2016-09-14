@@ -10,7 +10,7 @@ fileControllerM.createFile = function (roomId) {
   console.log("shortID generated", clipId);
   filePath = 'clip' + clipId + '.oog';
   return new Promise((resolve, reject) => {
-    File.create({fileId: clipId, pathUrl: filePath}, (err, data) => {
+    File.create({fileId: clipId, pathUrl: filePath, roomId: roomId}, (err, data) => {
       if(err) {
         reject(err);
       } else {
