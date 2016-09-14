@@ -70,7 +70,7 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _login = __webpack_require__(238);
+	var _login = __webpack_require__(240);
 
 	var _login2 = _interopRequireDefault(_login);
 
@@ -27297,7 +27297,7 @@
 
 	var _reactRouter = __webpack_require__(172);
 
-	var _clipsList = __webpack_require__(239);
+	var _clipsList = __webpack_require__(238);
 
 	var _clipsList2 = _interopRequireDefault(_clipsList);
 
@@ -27402,60 +27402,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Login = function (_Component) {
-	  _inherits(Login, _Component);
-
-	  function Login() {
-	    _classCallCheck(this, Login);
-
-	    return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
-	  }
-
-	  _createClass(Login, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'This is the login'
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Login;
-	}(_react.Component);
-
-	exports.default = Login;
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactAudioPlayer = __webpack_require__(240);
+	var _reactAudioPlayer = __webpack_require__(239);
 
 	var _reactAudioPlayer2 = _interopRequireDefault(_reactAudioPlayer);
 
@@ -27526,10 +27473,63 @@
 	exports.default = ClipsList;
 
 /***/ },
-/* 240 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports=function(e){function n(r){if(t[r])return t[r].exports;var o=t[r]={exports:{},id:r,loaded:!1};return e[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var t={};return n.m=e,n.c=t,n.p="",n(0)}([function(e,n,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}function o(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}function a(e,n){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!n||"object"!=typeof n&&"function"!=typeof n?e:n}function s(e,n){if("function"!=typeof n&&null!==n)throw new TypeError("Super expression must either be null or a function, not "+typeof n);e.prototype=Object.create(n&&n.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),n&&(Object.setPrototypeOf?Object.setPrototypeOf(e,n):e.__proto__=n)}Object.defineProperty(n,"__esModule",{value:!0});var p=function(){function e(e,n){for(var t=0;t<n.length;t++){var r=n[t];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(n,t,r){return t&&e(n.prototype,t),r&&e(n,r),n}}(),u=t(1),i=r(u),l=1e4,c=function(e){function n(){return o(this,n),a(this,Object.getPrototypeOf(n).apply(this,arguments))}return s(n,e),p(n,[{key:"componentDidMount",value:function(){var e=this,n=this.audioEl;n.addEventListener("error",function(n){e.props.onError&&e.props.onError(n)}),n.addEventListener("canplay",function(n){e.props.onCanPlay&&e.props.onCanPlay(n)}),n.addEventListener("canplaythrough",function(n){e.props.onCanPlayThrough&&e.props.onCanPlayThrough(n)}),n.addEventListener("play",function(n){e.setListenTrack(),e.props.onPlay&&e.props.onPlay(n)}),n.addEventListener("abort",function(n){e.clearListenTrack(),e.props.onAbort&&e.props.onAbort(n)}),n.addEventListener("ended",function(n){e.clearListenTrack(),e.props.onEnded&&e.props.onEnded(n)}),n.addEventListener("pause",function(n){e.clearListenTrack(),e.props.onPause&&e.props.onPause(n)}),n.addEventListener("seeked",function(n){e.clearListenTrack(),e.props.onSeeked&&e.props.onSeeked(n)})}},{key:"componentWillReceiveProps",value:function(e){if(e.selectedPlayerEvent){var n=this.audioEl;n.currentTime=e.selectedPlayerEvent.playTime,n.play()}}},{key:"setListenTrack",value:function(){var e=this;if(!this.listenTracker){var n=this.props.listenInterval||l;this.listenTracker=setInterval(function(){e.props.onListen&&e.props.onListen(e.audioEl.currentTime)},n)}}},{key:"clearListenTrack",value:function(){this.listenTracker&&(clearInterval(this.listenTracker),this.listenTracker=null)}},{key:"render",value:function(){var e=this,n=this.props.children||i["default"].createElement("p",null,"Your browser does not support the ",i["default"].createElement("code",null,"audio")," element.");return i["default"].createElement("audio",{className:"react-audio-player",src:this.props.src,autoPlay:this.props.autoPlay,preload:this.props.preload,controls:!0,ref:function(n){return e.audioEl=n},onPlay:this.onPlay},n)}}]),n}(i["default"].Component);c.propTypes={autoPlay:i["default"].PropTypes.string,children:i["default"].PropTypes.array,listenInterval:i["default"].PropTypes.number,onAbort:i["default"].PropTypes.func,onCanPlay:i["default"].PropTypes.func,onCanPlayThrough:i["default"].PropTypes.func,onEnded:i["default"].PropTypes.func,onError:i["default"].PropTypes.func,onListen:i["default"].PropTypes.func,onPause:i["default"].PropTypes.func,onPlay:i["default"].PropTypes.func,onSeeked:i["default"].PropTypes.func,preload:i["default"].PropTypes.string,src:i["default"].PropTypes.string},n["default"]=c},function(e,n){e.exports=__webpack_require__(1)}]);
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Login = function (_Component) {
+	  _inherits(Login, _Component);
+
+	  function Login() {
+	    _classCallCheck(this, Login);
+
+	    return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
+	  }
+
+	  _createClass(Login, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'This is the login'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Login;
+	}(_react.Component);
+
+	exports.default = Login;
 
 /***/ }
 /******/ ]);
