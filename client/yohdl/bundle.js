@@ -115,6 +115,7 @@
 					// 	that.setState({ files: [url] })
 					// }, 3000);
 					that.state.chats[0].files = [url];
+					console.log("URL did Mount", url);
 					that.forceUpdate();
 				});
 			}
@@ -21671,11 +21672,13 @@
 	    key: 'render',
 	    value: function render() {
 	      var items = this.props.clips.map(function (item) {
+	        console.log("items", item);
+	        var path = '/../../clips/' + item;
 	        return _react2.default.createElement(
 	          'li',
 	          null,
 	          ' ',
-	          _react2.default.createElement(_reactAudioPlayer2.default, { src: item, autoPlay: 'true' }),
+	          _react2.default.createElement(_reactAudioPlayer2.default, { src: path, autoPlay: 'true' }),
 	          ' '
 	        );
 	      });
