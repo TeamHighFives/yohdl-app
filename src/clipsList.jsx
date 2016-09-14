@@ -4,9 +4,10 @@ import ReactAudioPlayer from 'react-audio-player';
 class ClipsList extends Component {
   render() {
     let items = this.props.clips.map((item) => {
-      console.log("items", item); 
+
       let path = '/../../clips/' + item; 
-      return <li> <ReactAudioPlayer src={path} autoPlay="true" /> </li>
+      console.log("items", path); 
+      return <div> <ReactAudioPlayer src={path}/> </div>
     });
 
     return (

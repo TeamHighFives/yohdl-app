@@ -86,7 +86,7 @@
 
 			var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
-			_this.state = { id: 5678, chats: [{ chatName: 'Codesmith', files: [], id: 679 }, { chatName: 'MakerSquare', files: [4, 5, 6], id: 123 }] };
+			_this.state = { clips: ['clipBkZaKzL2.oog', 'clipHkkEkfU2.oog', 'clipHyGI5fLh.oog'] };
 			return _this;
 		}
 
@@ -114,7 +114,7 @@
 					// setTimeout(() => {
 					// 	that.setState({ files: [url] })
 					// }, 3000);
-					that.state.chats[0].files = [url];
+					//that.state.chats[0].files = [url];
 					console.log("URL did Mount", url);
 					that.forceUpdate();
 				});
@@ -130,8 +130,7 @@
 						null,
 						'Yodle.'
 					),
-					_react2.default.createElement(_chatList2.default, { chats: this.state.chats, select: this.selectChat }),
-					_react2.default.createElement(_clipsList2.default, { clips: this.state.chats[0].files })
+					_react2.default.createElement(_clipsList2.default, { clips: this.state.clips })
 				);
 			}
 		}]);
@@ -21672,13 +21671,14 @@
 	    key: 'render',
 	    value: function render() {
 	      var items = this.props.clips.map(function (item) {
-	        console.log("items", item);
+
 	        var path = '/../../clips/' + item;
+	        console.log("items", path);
 	        return _react2.default.createElement(
-	          'li',
+	          'div',
 	          null,
 	          ' ',
-	          _react2.default.createElement(_reactAudioPlayer2.default, { src: path, autoPlay: 'true' }),
+	          _react2.default.createElement(_reactAudioPlayer2.default, { src: path }),
 	          ' '
 	        );
 	      });

@@ -9,7 +9,7 @@ var socket = io.connect();
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { id: 5678, chats: [{ chatName: 'Codesmith', files: [], id: 679 }, { chatName: 'MakerSquare', files: [4, 5, 6], id: 123 }] }
+		this.state = {clips: ['clipBkZaKzL2.oog', 'clipHkkEkfU2.oog', 'clipHyGI5fLh.oog']}
 	}
 	selectChat(id) {
 		console.log(id);
@@ -29,7 +29,7 @@ class App extends Component {
 				// setTimeout(() => {
 				// 	that.setState({ files: [url] })
 				// }, 3000);
-				that.state.chats[0].files = [url];
+				//that.state.chats[0].files = [url];
 				console.log("URL did Mount", url); 
 				that.forceUpdate();
 		})
@@ -40,8 +40,7 @@ class App extends Component {
     return (
       <div className="Header">
         <h1>Yodle.</h1>
-				<ChatList chats={this.state.chats}  select={this.selectChat}/>
-				<ClipsList clips={this.state.chats[0].files} />
+				<ClipsList clips={this.state.clips} />
       </div>
     );
   }
