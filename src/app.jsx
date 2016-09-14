@@ -23,9 +23,14 @@ class App extends Component {
 	}
 	componentDidMount() {
 		var that = this;
-		let splitPath = window.location.pathname.split('/')
-		let roomName = splitPath[splitPath.length - 2];
-		let getPath = '/roomClips/' + roomName;
+		let regRoomName = window.location.pathname.match(/(?!room)[1-9]+/)[0];
+		
+		// console.log("regex room name", regRoomName);
+		// let splitPath = window.location.pathname.split('/')
+		// let roomName = splitPath[splitPath.length - 2];
+		let getPath = '/roomClips/' + regRoomName;
+		// console.log("roomname", roomName)
+		
 		$.get(getPath, (data) => {
 			data = JSON.parse(data);
 			that.setState({clips: data});
