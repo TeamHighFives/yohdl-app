@@ -3,9 +3,10 @@ const File = require('./fileModelM');
 const shortId = require('shortid');
 fileControllerM = {};
 
-fileControllerM.createFile = function (data) {
+fileControllerM.createFile = function (roomId) {
   //console.log("inside fileCreate");
   let clipId = shortId.generate();
+  console.log('roomID in file controller', roomId);
   console.log("shortID generated", clipId);
   filePath = 'clip' + clipId + '.oog';
   return new Promise((resolve, reject) => {
