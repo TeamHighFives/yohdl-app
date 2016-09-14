@@ -73,7 +73,8 @@ app.get('/yohdl', function (req, res) {
 });
 
 app.get('/clips', fileControllerM.getFile, (req, res) => {
-  console.log('hit the clips')
+  console.log(res.clipFiles, "files after passing through filecontroller middleware");
+  res.send(res.clipFiles);
 });
 
 
@@ -98,6 +99,11 @@ app.post('/clip', (req, res) => {
   res.send('ok');
 })
 
+app.get('/yohdl/room/:roomId', fileControllerM.getFilesByRoom, (req, res) => {
+
+  //req.params.roomId = '1111'
+  res.send(res.clipFiles);
+})
 //serving main.js
 // app.get('/bundle.js', function(req, res) {
 //   res.sendFile(path.join(__dirname, './../client/yohdl/bundle.js'));
