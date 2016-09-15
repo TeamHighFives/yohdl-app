@@ -65,8 +65,10 @@ class ClipsList extends Component {
   }
     return (
       <div className="right">
-        <div onClick={this.playAll}>Play all</div>
-        <div onClick={this.stopPlayAll}>Stop all</div>
+        <div>
+          <button onClick={this.playAll}>Play all</button>
+          <button onClick={this.stopPlayAll}>Stop all</button>
+        </div>
         <span id="clips">
           <ul>
             {items}
