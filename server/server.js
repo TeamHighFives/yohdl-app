@@ -66,19 +66,17 @@ app.use(cookieParser());
 // app.use(cookieParser(), cookieController.setCookie);
 
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
-});
 
-app.get('/yohdl/rooms', function (req, res) {
-  console.log("hit route yohdl/rooms");
-  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
-})
 
-app.get('/yohdl/room/:roomId', function (req, res) {
-  console.log("PATH ", __dirname)
-  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
-});
+// app.get('/yohdl/rooms', function (req, res) {
+//   console.log("hit route yohdl/rooms");
+//   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+// })
+
+// app.get('/yohdl/room/:roomId', function (req, res) {
+//   console.log("PATH ", __dirname)
+//   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+// });
 
 // app.get('/yohdl', function (req, res) {
 //   res.redirect(path.join(__dirname, './../client/yohdl/index.html'));
@@ -114,22 +112,6 @@ app.post('/clip', (req, res) => {
 app.get('/roomClips/:roomId', fileControllerM.getFilesByRoom, (req, res) => {
   res.send(res.clipFiles);
 })
-//serving main.js
-// app.get('/bundle.js', function(req, res) {
-//   res.sendFile(path.join(__dirname, './../client/yohdl/bundle.js'));
-// });
-// app.get('/events.js', function(req, res) {
-//   res.sendFile(path.join(__dirname, './../client/yohdl/events.js'));
-// });
-// app.get('/main.js', function(req, res) {
-// 	res.sendFile(path.join(__dirname, './../client/main.js'));
-// });
-// app.get('/install.js', function(req, res) {
-// 	res.sendFile(path.join(__dirname, './../client/install.js'));
-// });
-// app.get('/main.css', function(req, res) {
-//   res.sendFile(path.join(__dirname, './../client/yohdl/main.css'));
-// });
 
 //logging the user in
 app.post('/login', userControllerM.verifyUser, (req, res) => {
@@ -140,6 +122,9 @@ app.post('/signup', userControllerM.createUser, (req, res) => {
   res.sendFile('/');
 });
 
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+});
 
 
 let globalSocket;
