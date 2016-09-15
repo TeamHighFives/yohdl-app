@@ -1,8 +1,8 @@
 module.exports = {
-  entry: './src/app.jsx',
+  entry: './src/home.jsx',
   output: {
   	path: './client/yohdl',
-    filename: 'bundle.js'       
+    filename: 'bundle.js'
   },
   module: {
     loaders: [

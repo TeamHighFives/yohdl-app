@@ -11,6 +11,7 @@ const chatController = require('./chat/chatController');
 const fileController = require('./files/fileController');
 const fileControllerM = require('./files/fileControllerM');
 
+const userControllerM = require('./user/userControllerM');
 const cookieController = require('./utils/cookieController');
 const chat = require('./chat/chatController');
 const redis = require('redis');
@@ -38,6 +39,7 @@ app.use('/clips', express.static('clips'));
 // app.use(express.static('client'));
 app.use('/yohdl/room/:roomId', express.static('client/yohdl'));
 app.use('/yohdl', express.static('client/yohdl'));
+app.use('/', express.static('client/yohdl'));
 
 
 
@@ -84,7 +86,6 @@ app.get('/clips', fileControllerM.getFile, (req, res) => {
   res.send(res.clipFiles);
 });
 
-
 app.post('/clip', (req, res) => {
   var data = req.body;
   let roomId = req.headers.roomid;
@@ -127,7 +128,15 @@ app.get('/roomClips/:roomId', fileControllerM.getFilesByRoom, (req, res) => {
 // });
 
 //logging the user in
-app.post('/login', userController.verifyUser);
+app.post('/login', userControllerM.verifyUser, (req, res) => {
+  res.sendFile('./../yohdl');
+});
+
+app.post('/signup', userControllerM.createUser, (req, res) => {
+  res.sendFile('/');
+});
+
+
 
 let globalSocket;
 //socket.io
