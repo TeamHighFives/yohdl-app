@@ -17,22 +17,22 @@ class ClipsList extends Component {
 
     this.setState({playing: true}, () => {
       let clipQueue = $(".react-audio-player").toArray();
-      playNext(clipQueue) 
+      playNext(clipQueue)
     })
     const playNext = (clipQueue) => {
       const clipQueueCopy = clipQueue.slice();
       function playNextCallback() {
-        firstClip.removeEventListener('ended', playNextCallback)        
+        firstClip.removeEventListener('ended', playNextCallback)
         playNext(clipQueueCopy);
       }
       if (!this.state.playing || clipQueue.length === 0) return;
       // let firstClip = clipQueue.shift();
       let firstClip = clipQueueCopy[0];
       clipQueueCopy.shift();
-      firstClip.addEventListener('ended', playNextCallback)      
+      firstClip.addEventListener('ended', playNextCallback)
       firstClip.play().catch(()=>{
         console.log('caught error on play');
-        firstClip.removeEventListener('ended', playNextCallback)        
+        firstClip.removeEventListener('ended', playNextCallback)
         playNext(clipQueueCopy);
       });
     }
@@ -64,7 +64,7 @@ class ClipsList extends Component {
     });
   }
     return (
-      <div className="right">
+      <div>
         <div>
           <button onClick={this.playAll}>Play all</button>
           <button onClick={this.stopPlayAll}>Stop all</button>
