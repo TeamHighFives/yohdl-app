@@ -27199,7 +27199,7 @@
 	            null,
 	            _react2.default.createElement(
 	              _reactRouter.Link,
-	              { to: '/yohdl/room/1111', activeStyle: { color: 'red' } },
+	              { to: '/yohdl/rooms', activeStyle: { color: 'red' } },
 	              'Room list'
 	            )
 	          )
@@ -27259,22 +27259,22 @@
 	        ),
 	        _react2.default.createElement(
 	          "a",
-	          { href: "http://localhost/yohdl/room/1111" },
+	          { href: "http://localhost:8080/yohdl/room/1111" },
 	          "Room 1111"
 	        ),
 	        _react2.default.createElement(
 	          "a",
-	          { href: "http://localhost/yohdl/room/2222" },
+	          { href: "http://localhost:8080/yohdl/room/2222" },
 	          "Room 2222"
 	        ),
 	        _react2.default.createElement(
 	          "a",
-	          { href: "http://localhost/yohdl/room/3333" },
+	          { href: "http://localhost:8080/yohdl/room/3333" },
 	          "Room 3333"
 	        ),
 	        _react2.default.createElement(
 	          "a",
-	          { href: "http://localhost/yohdl/room/4444" },
+	          { href: "http://localhost:8080/yohdl/room/4444" },
 	          "Room 4444"
 	        )
 	      );
@@ -27362,6 +27362,7 @@
 
 				$.get(getPath, function (data) {
 					data = JSON.parse(data);
+					data.reverse();
 					that.setState({ clips: data });
 				});
 				var that = this;
@@ -27441,14 +27442,36 @@
 	    var _this = _possibleConstructorReturn(this, (ClipsList.__proto__ || Object.getPrototypeOf(ClipsList)).call(this, props));
 
 	    _this.playAll = _this.playAll.bind(_this);
+	    _this.playNext = _this.playNext.bind(_this);
+	    _this.state = {
+	      clips: _this.props.clips,
+	      numClips: _this.props.clips.length,
+	      playThrough: false
+	    };
 	    return _this;
 	  }
 
 	  _createClass(ClipsList, [{
 	    key: 'playAll',
 	    value: function playAll() {
-	      var clipQueue = Array.from(document.querySelectorAll(".react-audio-player"));
-	      var firstClip = clipQueue.shift();
+	      function playNext(clipQueue) {
+	        var firstClip = clipQueue.shift();
+	        firstClip.play().catch(function () {
+	          console.log('caught error on play');
+	          playNext(clipQueue);
+	        });
+	        firstClip.addEventListener('ended', function (e) {
+	          playNext(clipQueue);
+	        });
+	      }
+	      var clipQueue = $(".react-audio-player").toArray();
+	      playNext(clipQueue);
+	    }
+	  }, {
+	    key: 'playNext',
+	    value: function playNext(e) {
+	      if (!this.state.playThrough) return;
+	      console.log("this is e in playNext", e);
 	    }
 	  }, {
 	    key: 'render',
@@ -27457,7 +27480,6 @@
 
 	      var items = void 0;
 	      if (this.props.clips.length > 0) {
-	        this.props.clips.reverse();
 	        items = this.props.clips.map(function (item, index) {
 	          var path = '/../../clips/' + item;
 	          var last = _this2.props.clips.length - 1;
