@@ -1,7 +1,6 @@
 var app = require('express')();
 const express = require('express');
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+// var server = require('http').createServer(app);
 const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -21,6 +20,15 @@ const concat = require('concat-stream');
 const cookie = require('cookie');
 const mongoose = require('mongoose');
 const File = require('./files/fileModelM');
+
+const https = require('https');
+const privateKey = fs.readFileSync(path.join(__dirname, '/sslcert/file.pem'), 'utf-8');
+const certificate = fs.readFileSync(path.join(__dirname, '/sslcert/file.crt'), 'utf-8');
+const credentials = { key: privateKey, cert: certificate };
+const server = https.createServer(credentials, app);
+var io = require('socket.io')(server);
+
+
 let curClip;
 
 const mongoURI = 'mongodb://teamhighfive:codesmith05@ds029496.mlab.com:29496/teamhighfive';
@@ -52,8 +60,6 @@ app.use((req,res,next) => {
   }))
 });
 
-
-
 // const oppressor = require('oppressor');
 
 
@@ -67,18 +73,21 @@ app.use(cookieParser());
 // app.use(cookieParser(), cookieController.setCookie);
 
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
-});
 
-app.get('/yohdl/room/:roomId', function (req, res) {
-  console.log("PATH ", __dirname)
-  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
-});
 
-app.get('/yohdl', function (req, res) {
-  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
-});
+// app.get('/yohdl/rooms', function (req, res) {
+//   console.log("hit route yohdl/rooms");
+//   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+// })
+
+// app.get('/yohdl/room/:roomId', function (req, res) {
+//   console.log("PATH ", __dirname)
+//   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+// });
+
+// app.get('/yohdl', function (req, res) {
+//   res.redirect(path.join(__dirname, './../client/yohdl/index.html'));
+// });
 
 
 
@@ -110,32 +119,15 @@ app.post('/clip', (req, res) => {
 app.get('/roomClips/:roomId', fileControllerM.getFilesByRoom, (req, res) => {
   res.send(res.clipFiles);
 })
-//serving main.js
-// app.get('/bundle.js', function(req, res) {
-//   res.sendFile(path.join(__dirname, './../client/yohdl/bundle.js'));
-// });
-// app.get('/events.js', function(req, res) {
-//   res.sendFile(path.join(__dirname, './../client/yohdl/events.js'));
-// });
-// app.get('/main.js', function(req, res) {
-// 	res.sendFile(path.join(__dirname, './../client/main.js'));
-// });
-// app.get('/install.js', function(req, res) {
-// 	res.sendFile(path.join(__dirname, './../client/install.js'));
-// });
-// app.get('/main.css', function(req, res) {
-//   res.sendFile(path.join(__dirname, './../client/yohdl/main.css'));
-// });
 
 //logging the user in
-app.post('/login', userControllerM.verifyUser, (req, res) => {
-  res.sendFile('./../yohdl');
-});
+app.post('/login', userControllerM.verifyUser);
 
-app.post('/signup', userControllerM.createUser, (req, res) => {
-  res.sendFile('/');
-});
+app.post('/signup', userControllerM.createUser);
 
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+});
 
 
 let globalSocket;
@@ -144,10 +136,12 @@ io.on('connection', function (socket) {
   globalSocket = socket;
   console.log('connected')
   socket.on('clip', () => {
+    console.log("clip recieved in socket.on clip");
     console.log('inclip listener')
     // console.log('curClip in ')
     setTimeout(() => {
       socket.emit('newClip', curClip);
+      
     }, 5000);
 
    });
