@@ -21,6 +21,7 @@ const concat = require('concat-stream');
 const cookie = require('cookie');
 const mongoose = require('mongoose');
 const File = require('./files/fileModelM');
+
 let curClip;
 
 const mongoURI = 'mongodb://teamhighfive:codesmith05@ds029496.mlab.com:29496/teamhighfive';
@@ -52,8 +53,6 @@ app.use((req,res,next) => {
   }))
 });
 
-
-
 // const oppressor = require('oppressor');
 
 
@@ -71,14 +70,19 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
 });
 
+app.get('/yohdl/rooms', function (req, res) {
+  console.log("hit route yohdl/rooms");
+  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
+})
+
 app.get('/yohdl/room/:roomId', function (req, res) {
   console.log("PATH ", __dirname)
   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
 });
 
-app.get('/yohdl', function (req, res) {
-  res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
-});
+// app.get('/yohdl', function (req, res) {
+//   res.redirect(path.join(__dirname, './../client/yohdl/index.html'));
+// });
 
 
 
