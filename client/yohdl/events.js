@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect('https://localhost:8080');
 console.log('------- into the main --------');
 
     socket.on('userObj', function(data) {
