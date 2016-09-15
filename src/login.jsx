@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
 
+import { browserHistory } from 'react-router';
 
 class Login extends Component {
   constructor() {
@@ -16,6 +17,9 @@ class Login extends Component {
     };
     this.setState = (newState);
     console.log('hit submit with these events - ', newState);
+    const path = `/yohdl/rooms`
+    browserHistory.push(path)
+
   }
   render() {
     return (

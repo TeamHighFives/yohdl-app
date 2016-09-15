@@ -5,15 +5,17 @@ class ClipsList extends Component {
   constructor(props) {
     super(props);
     this.playAll = this.playAll.bind(this);
-    this.playNext = this.playNext.bind(this);    
+    this.playNext = this.playNext.bind(this);   
+    this.stopPlayAll = this.stopPlayAll.bind(this); 
     this.state = {
       clips: this.props.clips,
       numClips: this.props.clips.length,
-      playThrough: false
+      playThrough: true
     }
   }
   playAll() {
-    function playNext(clipQueue) {
+    const playNext = (clipQueue) => {
+      if (!this.state.playThrough) return;
       let firstClip = clipQueue.shift();
       firstClip.play().catch(()=>{
         console.log('caught error on play');
@@ -34,6 +36,10 @@ class ClipsList extends Component {
 
   }
 
+  stopPlayAll() {
+    this.setState({playThrough: false})
+  }
+
   render() {
     let items;
     if(this.props.clips.length > 0) {
@@ -50,6 +56,7 @@ class ClipsList extends Component {
     return (
       <div>
         <div onClick={this.playAll}>Play all</div>
+        <div onClick={this.stopPlayAll}>Stop all</div>
         <span id="clips">
           <ul>
             {items}
