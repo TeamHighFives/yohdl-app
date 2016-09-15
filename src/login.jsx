@@ -37,7 +37,7 @@ class Login extends Component {
   }
   render() {
     return (
-      <div id="login-form">
+      <div id="login-form" className="right padding-right">
         <div id="error-message">{this.state.error}</div>
         <h1>Login</h1>
           <form onSubmit={this.sendCreds}>

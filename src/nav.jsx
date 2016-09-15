@@ -5,12 +5,26 @@ import { Link } from 'react-router';
 class Nav extends Component {
   render() {
     return (
-      <nav className="nav">
-        <ul role="nav">
-          <li><Link to="/yohdl/login" activeStyle={{ color: 'red' }}>Login</Link></li>
-          <li><Link to="/yohdl/rooms" activeStyle={{ color: 'red' }}>Room list</Link></li>
-        </ul>
-      </nav>
+      <div className="container">
+      <nav>
+      		<ul className="mcd-menu">
+      			<li>
+      				<Link to="/yohdl/login">
+      					<i className="fa fa-home"></i>
+      					<strong>Login</strong>
+      					<small>shh do it</small>
+      				</Link>
+      			</li>
+      			<li>
+              <Link to="/yohdl/rooms">
+      					<i className="fa fa-edit"></i>
+      					<strong>Rooms</strong>
+      					<small>just pick a room though</small>
+      				</Link>
+      			</li>
+      		</ul>
+      	</nav>
+      </div>
     )
   }
 }

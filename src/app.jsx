@@ -24,13 +24,13 @@ class App extends Component {
 	componentDidMount() {
 		var that = this;
 		let regRoomName = window.location.pathname.match(/(?!room)[1-9]+/)[0];
-		
+
 		// console.log("regex room name", regRoomName);
 		// let splitPath = window.location.pathname.split('/')
 		// let roomName = splitPath[splitPath.length - 2];
 		let getPath = '/roomClips/' + regRoomName;
 		// console.log("roomname", roomName)
-		
+
 		$.get(getPath, (data) => {
 			data = JSON.parse(data);
 			data.reverse();
@@ -49,7 +49,7 @@ class App extends Component {
   render() {
     return (
 			<div>
-	      <div className="Header">
+	      <div className="right">
 	        <h1>Yodle.</h1>
 					<ClipsList clips={this.state.clips} />
 	      </div>
