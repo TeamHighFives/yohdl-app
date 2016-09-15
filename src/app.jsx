@@ -49,7 +49,7 @@ class App extends Component {
   render() {
     return (
 			<div>
-	      <div className="right">
+	      <div className="right padding-right">
 	        <h1>Yodle.</h1>
 					<ClipsList clips={this.state.clips} />
 	      </div>

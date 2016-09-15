@@ -54,7 +54,7 @@ class ClipsList extends Component {
     });
   }
     return (
-      <div className="right">
+      <div>
         <div onClick={this.playAll}>Play all</div>
         <div onClick={this.stopPlayAll}>Stop all</div>
         <span id="clips">
