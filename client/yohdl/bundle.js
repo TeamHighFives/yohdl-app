@@ -114,6 +114,10 @@
 	    { path: '/', component: Home },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _login2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/yohdl/rooms', component: _rooms2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/yohdl/room/1111', component: _app2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/yohdl/room/2222', component: _app2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/yohdl/room/3333', component: _app2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/yohdl/room/4444', component: _app2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/yohdl/login', component: _login2.default })
 	  )
 	), document.getElementById('app'));
@@ -27217,7 +27221,7 @@
 /* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -27228,6 +27232,8 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(172);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27247,35 +27253,35 @@
 	  }
 
 	  _createClass(Rooms, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        _react2.default.createElement(
-	          "h1",
+	          'h1',
 	          null,
-	          "Rooms"
+	          'Rooms'
 	        ),
 	        _react2.default.createElement(
-	          "a",
-	          { href: "http://localhost:8080/yohdl/room/1111" },
-	          "Room 1111"
+	          _reactRouter.Link,
+	          { to: '/yohdl/room/1111' },
+	          'Room 1111'
 	        ),
 	        _react2.default.createElement(
-	          "a",
-	          { href: "http://localhost:8080/yohdl/room/2222" },
-	          "Room 2222"
+	          _reactRouter.Link,
+	          { to: '/yohdl/room/2222' },
+	          'Room 2222'
 	        ),
 	        _react2.default.createElement(
-	          "a",
-	          { href: "http://localhost:8080/yohdl/room/3333" },
-	          "Room 3333"
+	          _reactRouter.Link,
+	          { to: '/yohdl/room/1111' },
+	          'Room 3333'
 	        ),
 	        _react2.default.createElement(
-	          "a",
-	          { href: "http://localhost:8080/yohdl/room/4444" },
-	          "Room 4444"
+	          _reactRouter.Link,
+	          { to: '/yohdl/room/1111' },
+	          'Room 4444'
 	        )
 	      );
 	    }
@@ -27443,10 +27449,11 @@
 
 	    _this.playAll = _this.playAll.bind(_this);
 	    _this.playNext = _this.playNext.bind(_this);
+	    _this.stopPlayAll = _this.stopPlayAll.bind(_this);
 	    _this.state = {
 	      clips: _this.props.clips,
 	      numClips: _this.props.clips.length,
-	      playThrough: false
+	      playThrough: true
 	    };
 	    return _this;
 	  }
@@ -27454,7 +27461,10 @@
 	  _createClass(ClipsList, [{
 	    key: 'playAll',
 	    value: function playAll() {
-	      function playNext(clipQueue) {
+	      var _this2 = this;
+
+	      var playNext = function playNext(clipQueue) {
+	        if (!_this2.state.playThrough) return;
 	        var firstClip = clipQueue.shift();
 	        firstClip.play().catch(function () {
 	          console.log('caught error on play');
@@ -27463,7 +27473,7 @@
 	        firstClip.addEventListener('ended', function (e) {
 	          playNext(clipQueue);
 	        });
-	      }
+	      };
 	      var clipQueue = $(".react-audio-player").toArray();
 	      playNext(clipQueue);
 	    }
@@ -27474,15 +27484,20 @@
 	      console.log("this is e in playNext", e);
 	    }
 	  }, {
+	    key: 'stopPlayAll',
+	    value: function stopPlayAll() {
+	      this.setState({ playThrough: false });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      var items = void 0;
 	      if (this.props.clips.length > 0) {
 	        items = this.props.clips.map(function (item, index) {
 	          var path = '/../../clips/' + item;
-	          var last = _this2.props.clips.length - 1;
+	          var last = _this3.props.clips.length - 1;
 	          if (index !== last) {
 	            return _react2.default.createElement(
 	              'li',
@@ -27509,6 +27524,11 @@
 	          'div',
 	          { onClick: this.playAll },
 	          'Play all'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { onClick: this.stopPlayAll },
+	          'Stop all'
 	        ),
 	        _react2.default.createElement(
 	          'span',

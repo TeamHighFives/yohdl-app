@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import { Router, Route, Link } from 'react-router';
 
 class Rooms extends Component {
   render() {
     return (
       <div>
         <h1>Rooms</h1>
-        <a href="http://localhost:8080/yohdl/room/1111">Room 1111</a>
-        <a href="http://localhost:8080/yohdl/room/2222">Room 2222</a>
-        <a href="http://localhost:8080/yohdl/room/3333">Room 3333</a>
-        <a href="http://localhost:8080/yohdl/room/4444">Room 4444</a>
+        <Link to="/yohdl/room/1111">Room 1111</Link>
+        <Link to="/yohdl/room/2222">Room 2222</Link>
+        <Link to="/yohdl/room/1111">Room 3333</Link>
+        <Link to="/yohdl/room/1111">Room 4444</Link>
       </div>
     )
   }
