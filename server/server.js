@@ -129,11 +129,11 @@ app.get('/roomClips/:roomId', fileControllerM.getFilesByRoom, (req, res) => {
 
 //logging the user in
 app.post('/login', userControllerM.verifyUser, (req, res) => {
-  res.sendFile('./../yohdl')
+  res.sendFile('./../yohdl');
 });
 
 app.post('/signup', userControllerM.createUser, (req, res) => {
-  res.sendFile('/')
+  res.sendFile('/');
 });
 
 
