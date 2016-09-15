@@ -1,7 +1,6 @@
 var app = require('express')();
 const express = require('express');
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+// var server = require('http').createServer(app);
 const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -21,6 +20,14 @@ const concat = require('concat-stream');
 const cookie = require('cookie');
 const mongoose = require('mongoose');
 const File = require('./files/fileModelM');
+
+const https = require('https');
+const privateKey = fs.readFileSync(path.join(__dirname, '/sslcert/file.pem'), 'utf-8');
+const certificate = fs.readFileSync(path.join(__dirname, '/sslcert/file.crt'), 'utf-8');
+const credentials = { key: privateKey, cert: certificate };
+const server = https.createServer(credentials, app);
+var io = require('socket.io')(server);
+
 
 let curClip;
 
@@ -129,10 +136,12 @@ io.on('connection', function (socket) {
   globalSocket = socket;
   console.log('connected')
   socket.on('clip', () => {
+    console.log("clip recieved in socket.on clip");
     console.log('inclip listener')
     // console.log('curClip in ')
     setTimeout(() => {
       socket.emit('newClip', curClip);
+      
     }, 5000);
 
    });
