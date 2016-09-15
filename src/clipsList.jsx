@@ -5,7 +5,7 @@ class ClipsList extends Component {
   constructor(props) {
     super(props);
     this.playAll = this.playAll.bind(this);
-    this.playNext = this.playNext.bind(this);
+
     this.stopPlayAll = this.stopPlayAll.bind(this);
     this.state = {
       clips: this.props.clips,
@@ -22,7 +22,6 @@ class ClipsList extends Component {
     const playNext = (clipQueue) => {
       const clipQueueCopy = clipQueue.slice();
       function playNextCallback() {
-        console.log("ended event caught");
         firstClip.removeEventListener('ended', playNextCallback)        
         playNext(clipQueueCopy);
       }
@@ -30,24 +29,24 @@ class ClipsList extends Component {
       // let firstClip = clipQueue.shift();
       let firstClip = clipQueueCopy[0];
       clipQueueCopy.shift();
-      console.log(clipQueueCopy)
-      console.log(firstClip, "this is the first clip");
       firstClip.addEventListener('ended', playNextCallback)      
       firstClip.play().catch(()=>{
         console.log('caught error on play');
         firstClip.removeEventListener('ended', playNextCallback)        
         playNext(clipQueueCopy);
       });
-      firstClip.addEventListener('ended', function(e){
-        playNext(clipQueue);
-     })
     }
-    let clipQueue = $(".react-audio-player").toArray();
-    playNext(clipQueue)
-
   }
 
   stopPlayAll() {
+    let playing;
+    $(".react-audio-player").toArray().forEach((element) => {
+      if (!element.paused) {
+        element.pause();
+        element.load();
+      }
+    })
+
     this.setState({playing: false})
   }
 
