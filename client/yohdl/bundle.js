@@ -27308,6 +27308,7 @@
 
 				$.get(getPath, function (data) {
 					data = JSON.parse(data);
+					data.reverse();
 					that.setState({ clips: data });
 				});
 				var that = this;
@@ -27387,14 +27388,36 @@
 	    var _this = _possibleConstructorReturn(this, (ClipsList.__proto__ || Object.getPrototypeOf(ClipsList)).call(this, props));
 
 	    _this.playAll = _this.playAll.bind(_this);
+	    _this.playNext = _this.playNext.bind(_this);
+	    _this.state = {
+	      clips: _this.props.clips,
+	      numClips: _this.props.clips.length,
+	      playThrough: false
+	    };
 	    return _this;
 	  }
 
 	  _createClass(ClipsList, [{
 	    key: 'playAll',
 	    value: function playAll() {
-	      var clipQueue = Array.from(document.querySelectorAll(".react-audio-player"));
-	      var firstClip = clipQueue.shift();
+	      function playNext(clipQueue) {
+	        var firstClip = clipQueue.shift();
+	        firstClip.play().catch(function () {
+	          console.log('caught error on play');
+	          playNext(clipQueue);
+	        });
+	        firstClip.addEventListener('ended', function (e) {
+	          playNext(clipQueue);
+	        });
+	      }
+	      var clipQueue = $(".react-audio-player").toArray();
+	      playNext(clipQueue);
+	    }
+	  }, {
+	    key: 'playNext',
+	    value: function playNext(e) {
+	      if (!this.state.playThrough) return;
+	      console.log("this is e in playNext", e);
 	    }
 	  }, {
 	    key: 'render',
@@ -27403,7 +27426,6 @@
 
 	      var items = void 0;
 	      if (this.props.clips.length > 0) {
-	        this.props.clips.reverse();
 	        items = this.props.clips.map(function (item, index) {
 	          var path = '/../../clips/' + item;
 	          var last = _this2.props.clips.length - 1;
@@ -27474,6 +27496,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactFacebookLogin = __webpack_require__(241);
+
+	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27527,7 +27553,8 @@
 	            { type: 'submit' },
 	            'submit'
 	          )
-	        )
+	        ),
+	        _react2.default.createElement('br', null)
 	      );
 	    }
 	  }]);
@@ -27536,6 +27563,12 @@
 	}(_react.Component);
 
 	exports.default = Login;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	!function(e,o){ true?module.exports=o(__webpack_require__(1)):"function"==typeof define&&define.amd?define(["react"],o):"object"==typeof exports?exports.FacebookLogin=o(require("react")):e.FacebookLogin=o(e.react)}(this,function(e){return function(e){function o(n){if(t[n])return t[n].exports;var r=t[n]={exports:{},id:n,loaded:!1};return e[n].call(r.exports,r,r.exports,o),r.loaded=!0,r.exports}var t={};return o.m=e,o.c=t,o.p="",o(0)}([function(e,o,t){e.exports=t(2)},function(e,o,t){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function r(e,o){if(!(e instanceof o))throw new TypeError("Cannot call a class as a function")}function i(e,o){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!o||"object"!=typeof o&&"function"!=typeof o?e:o}function a(e,o){if("function"!=typeof o&&null!==o)throw new TypeError("Super expression must either be null or a function, not "+typeof o);e.prototype=Object.create(o&&o.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),o&&(Object.setPrototypeOf?Object.setPrototypeOf(e,o):e.__proto__=o)}Object.defineProperty(o,"__esModule",{value:!0});var c=function(){function e(e,o){for(var t=0;t<o.length;t++){var n=o[t];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(o,t,n){return t&&e(o.prototype,t),n&&e(o,n),o}}(),s=t(5),l=n(s),p=t(3),u=n(p),f=function(e){function o(){var e,t,n,a;r(this,o);for(var c=arguments.length,s=Array(c),l=0;l<c;l++)s[l]=arguments[l];return t=n=i(this,(e=o.__proto__||Object.getPrototypeOf(o)).call.apply(e,[this].concat(s))),n.responseApi=function(e){window.FB.api("/me",{fields:n.props.fields},function(o){Object.assign(o,e),n.props.callback(o)})},n.checkLoginState=function(e){e.authResponse?n.responseApi(e.authResponse):n.props.callback&&n.props.callback({status:e.status})},n.click=function(){var e=n.props,o=e.scope,t=e.appId,r=!1;try{r=window.navigator&&window.navigator.standalone||navigator.userAgent.match("CriOS")||navigator.userAgent.match("mobile")}catch(i){}r?window.location.href="https://www.facebook.com/dialog/oauth?client_id="+t+"&redirect_uri="+window.location.href+"&state=facebookdirect&"+o:window.FB.login(n.checkLoginState,{scope:o})},a=t,i(n,a)}return a(o,e),c(o,[{key:"componentDidMount",value:function(){var e=this,o=this.props,t=o.appId,n=o.xfbml,r=o.cookie,i=o.version,a=o.autoLoad,c=o.language,s=document.getElementById("fb-root");s||(s=document.createElement("div"),s.id="fb-root",document.body.appendChild(s)),window.fbAsyncInit=function(){window.FB.init({version:"v"+i,appId:t,xfbml:n,cookie:r}),(a||window.location.search.includes("facebookdirect"))&&window.FB.getLoginStatus(e.checkLoginState)},function(e,o,t){var n=e.getElementsByTagName(o)[0],r=n,i=n;e.getElementById(t)||(i=e.createElement(o),i.id=t,i.src="//connect.facebook.net/"+c+"/all.js",r.parentNode.insertBefore(i,r))}(document,"script","facebook-jssdk")}},{key:"render",value:function(){var e=this.props,o=e.cssClass,t=e.size,n=e.icon,r=e.textButton,i="string"==typeof n;return l["default"].createElement("span",null,i&&l["default"].createElement("link",{rel:"stylesheet",href:"//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"}),l["default"].createElement("button",{className:o+" "+t,onClick:this.click},n&&i&&l["default"].createElement("i",{className:"fa "+n}),n&&!i&&n,r),l["default"].createElement("style",{dangerouslySetInnerHTML:{__html:u["default"]}}))}}]),o}(l["default"].Component);f.propTypes={callback:s.PropTypes.func.isRequired,appId:s.PropTypes.string.isRequired,xfbml:s.PropTypes.bool,cookie:s.PropTypes.bool,scope:s.PropTypes.string,textButton:s.PropTypes.string,typeButton:s.PropTypes.string,autoLoad:s.PropTypes.bool,size:s.PropTypes.string,fields:s.PropTypes.string,cssClass:s.PropTypes.string,version:s.PropTypes.string,icon:s.PropTypes.any,language:s.PropTypes.string},f.defaultProps={textButton:"Login with Facebook",typeButton:"button",scope:"public_profile,email",xfbml:!1,cookie:!1,size:"metro",fields:"name",cssClass:"kep-login-facebook",version:"2.3",language:"en_US"},o["default"]=f},function(e,o,t){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(o,"__esModule",{value:!0});var r=t(1),i=n(r);o["default"]=i["default"]},function(e,o,t){o=e.exports=t(4)(),o.push([e.id,".kep-login-facebook{font-family:Helvetica,sans-serif;font-weight:700;-webkit-font-smoothing:antialiased;color:#fff;cursor:pointer;display:inline-block;font-size:calc(.27548vw + 12.71074px);text-decoration:none;text-transform:uppercase;transition:background-color .3s,border-color .3s;background-color:#4c69ba;border:calc(.06887vw + .67769px) solid #4c69ba;padding:calc(.34435vw + 13.38843px) calc(.34435vw + 18.38843px)}.kep-login-facebook.small{padding:calc(.34435vw + 3.38843px) calc(.34435vw + 8.38843px)}.kep-login-facebook.medium{padding:calc(.34435vw + 8.38843px) calc(.34435vw + 13.38843px)}.kep-login-facebook.metro{border-radius:0}.kep-login-facebook .fa{margin-right:calc(.34435vw + 3.38843px)}",""]),o.locals={"kep-login-facebook":"kep-login-facebook",small:"small",medium:"medium",metro:"metro",fa:"fa"}},function(e,o){e.exports=function(){var e=[];return e.toString=function(){for(var e=[],o=0;o<this.length;o++){var t=this[o];t[2]?e.push("@media "+t[2]+"{"+t[1]+"}"):e.push(t[1])}return e.join("")},e.i=function(o,t){"string"==typeof o&&(o=[[null,o,""]]);for(var n={},r=0;r<this.length;r++){var i=this[r][0];"number"==typeof i&&(n[i]=!0)}for(r=0;r<o.length;r++){var a=o[r];"number"==typeof a[0]&&n[a[0]]||(t&&!a[2]?a[2]=t:t&&(a[2]="("+a[2]+") and ("+t+")"),e.push(a))}},e}},function(o,t){o.exports=e}])});
 
 /***/ }
 /******/ ]);
