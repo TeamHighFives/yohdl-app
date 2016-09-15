@@ -114,13 +114,9 @@ app.get('/roomClips/:roomId', fileControllerM.getFilesByRoom, (req, res) => {
 })
 
 //logging the user in
-app.post('/login', userControllerM.verifyUser, (req, res) => {
-  res.sendFile('./../yohdl');
-});
+app.post('/login', userControllerM.verifyUser);
 
-app.post('/signup', userControllerM.createUser, (req, res) => {
-  res.sendFile('/');
-});
+app.post('/signup', userControllerM.createUser);
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, './../client/yohdl/index.html'));
