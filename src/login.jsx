@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import FacebookLogin from 'react-facebook-login';
+
 import { browserHistory } from 'react-router';
 
 class Login extends Component {
@@ -28,6 +30,7 @@ class Login extends Component {
             <input type="text" placeholder="password" value={this.state.password}/>
             <button type="submit">submit</button>
           </form>
+          <br></br>
       </div>
     );
   }

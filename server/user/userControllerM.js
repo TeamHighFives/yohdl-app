@@ -58,7 +58,9 @@ let userControllerM = {
 		});
 		console.log("REQBODY in verify", keys[0][1]);
 		User.findOne({username: keys[0][1]}, (err, user) => {
+
 			console.log("USER IN VERIFY:", user);
+			console.log("USER", user);
 			if(err) {
 				console.log("Error in verifying user", err) ;
 			} else if(user) {
