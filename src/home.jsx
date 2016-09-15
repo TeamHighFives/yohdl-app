@@ -26,6 +26,10 @@ ReactDOM.render(
 		<Route path="/" component={Home}>
       <IndexRoute component={Login}/>
 			<Route path="/yohdl/rooms" component={Rooms}/>
+      <Route path="/yohdl/room/1111" component={App}/>
+      <Route path="/yohdl/room/2222" component={App}/>
+      <Route path="/yohdl/room/3333" component={App}/>
+      <Route path="/yohdl/room/4444" component={App}/>
 			<Route path="/yohdl/login" component={Login}/>
 		</Route>
 	</Router>,
