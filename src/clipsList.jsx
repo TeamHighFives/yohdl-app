@@ -5,8 +5,8 @@ class ClipsList extends Component {
   constructor(props) {
     super(props);
     this.playAll = this.playAll.bind(this);
-    this.playNext = this.playNext.bind(this);   
-    this.stopPlayAll = this.stopPlayAll.bind(this); 
+    this.playNext = this.playNext.bind(this);
+    this.stopPlayAll = this.stopPlayAll.bind(this);
     this.state = {
       clips: this.props.clips,
       numClips: this.props.clips.length,
@@ -26,7 +26,7 @@ class ClipsList extends Component {
      })
     }
     let clipQueue = $(".react-audio-player").toArray();
-    playNext(clipQueue)    
+    playNext(clipQueue)
 
   }
 
@@ -54,7 +54,7 @@ class ClipsList extends Component {
     });
   }
     return (
-      <div>
+      <div className="right">
         <div onClick={this.playAll}>Play all</div>
         <div onClick={this.stopPlayAll}>Stop all</div>
         <span id="clips">

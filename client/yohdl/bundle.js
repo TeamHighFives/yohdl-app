@@ -27184,27 +27184,51 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'nav',
-	        { className: 'nav' },
+	        'div',
+	        { className: 'container' },
 	        _react2.default.createElement(
-	          'ul',
-	          { role: 'nav' },
+	          'nav',
+	          null,
 	          _react2.default.createElement(
-	            'li',
-	            null,
+	            'ul',
+	            { className: 'mcd-menu' },
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/yohdl/login', activeStyle: { color: 'red' } },
-	              'Login'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/yohdl/login' },
+	                _react2.default.createElement('i', { className: 'fa fa-home' }),
+	                _react2.default.createElement(
+	                  'strong',
+	                  null,
+	                  'Login'
+	                ),
+	                _react2.default.createElement(
+	                  'small',
+	                  null,
+	                  'shh do it'
+	                )
+	              )
+	            ),
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/yohdl/rooms', activeStyle: { color: 'red' } },
-	              'Room list'
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/yohdl/rooms' },
+	                _react2.default.createElement('i', { className: 'fa fa-edit' }),
+	                _react2.default.createElement(
+	                  'strong',
+	                  null,
+	                  'Rooms'
+	                ),
+	                _react2.default.createElement(
+	                  'small',
+	                  null,
+	                  'just pick a room though'
+	                )
+	              )
 	            )
 	          )
 	        )
@@ -27257,7 +27281,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'right padding-right' },
 	        _react2.default.createElement(
 	          'h1',
 	          null,
@@ -27388,7 +27412,7 @@
 					null,
 					_react2.default.createElement(
 						'div',
-						{ className: 'Header' },
+						{ className: 'right' },
 						_react2.default.createElement(
 							'h1',
 							null,
@@ -27519,7 +27543,7 @@
 	      }
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'right' },
 	        _react2.default.createElement(
 	          'div',
 	          { onClick: this.playAll },
@@ -27631,7 +27655,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { id: 'login-form' },
+	        { id: 'login-form', className: 'right padding-right' },
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'error-message' },
