@@ -42,7 +42,7 @@ class Login extends Component {
         <h1>Login</h1>
           <form onSubmit={this.sendCreds}>
             <input type="text" placeholder="username" value={this.state.username}/>
-            <input type="text" placeholder="password" value={this.state.password}/>
+            <input type="password" placeholder="password" value={this.state.password}/>
             <button type="submit">submit</button>
           </form>
           <br></br>
